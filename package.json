@@ -1,0 +1,16 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrewRusanov/movies-explorer-api.git"
+  },
+  "author": "Andrew Rusanov",
+  "license": "ISC",
+  "homepage": "https://github.com/AndrewRusanov/movies-explorer-api#readme"
+}
