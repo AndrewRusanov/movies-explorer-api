@@ -1,7 +1,14 @@
-import express from 'express';
+import express, { urlencoded } from 'express';
+import mongoose from 'mongoose';
 
+const { PORT = 3000 } = process.env;
 const app = express();
 
-app.listen(3000, () => {
-  console.log(`Server listen port ${3000}`);
+app.use(express.json());
+app.use(urlencoded({ extended: true }));
+
+mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
+
+app.listen(PORT, () => {
+  console.log(`Server listen port ${PORT}`);
 });
