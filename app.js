@@ -1,13 +1,14 @@
 import express, { urlencoded } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import { errorLogger } from 'express-winston';
 import { errors } from 'celebrate';
+import dotenv from 'dotenv';
 import handleCenterError from './middlewares/centerError';
 import NotFoundError from './errors/NotFoundError';
 import router from './routes';
-import { requestLogger } from './middlewares/logger';
+import { requestLogger, errorLogger } from './middlewares/logger';
 
+dotenv.config();
 const { PORT = 3000 } = process.env;
 const app = express();
 app.use(cors());
