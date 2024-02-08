@@ -1,4 +1,7 @@
 import Movie from '../models/Movie';
+import BadRequest from '../errors/BadRequest';
+import NotFoundError from '../errors/NotFoundError';
+import ForbiddenError from '../errors/ForbiddenError';
 
 export const getMovies = (req, res, next) => {
   Movie.find({})
@@ -41,7 +44,7 @@ export const addMovie = (req, res, next) => {
         .catch(next);
     })
     .catch((error) => (error.name === 'ValidationError'
-      ? next(new Error('Переданы некорректные данные'))
+      ? next(new BadRequest('Переданы некорректные данные'))
       : next(error)));
 };
 
@@ -50,11 +53,11 @@ export const deleteMovie = (req, res, next) => {
   Movie.findById(movieId)
     .then((movie) => {
       if (!movie) {
-        return next(new Error('Фильм, с указанным id не найдена'));
+        return next(new NotFoundError('Фильм, с указанным id не найдена'));
       }
       if (movie.owner.toString() !== req.user._id) {
         return next(
-          new Error('Фильм другого пользователя, его нельзя удалить'),
+          new ForbiddenError('Фильм другого пользователя, его нельзя удалить'),
         );
       }
       return Movie.deleteOne(movie).then(() => res.send({ message: 'Карточка удалена' }));

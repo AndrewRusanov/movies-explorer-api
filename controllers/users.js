@@ -1,3 +1,5 @@
+import BadRequest from '../errors/BadRequest';
+import NotFoundError from '../errors/NotFoundError';
 import User from '../models/User';
 
 export const getUserInfo = (req, res, next) => {
@@ -14,9 +16,9 @@ export const editUserInfo = (req, res, next) => {
     { new: true, runValidators: true },
   )
     .then((user) => (!user
-      ? next(new Error('Запрашиваемый пользователь не найден'))
+      ? next(new NotFoundError('Запрашиваемый пользователь не найден'))
       : res.send(user)))
     .catch((error) => (error.name === 'ValidationError'
-      ? next(new Error('Данные введены некорректно'))
+      ? next(new BadRequest('Данные введены некорректно'))
       : next(error)));
 };
