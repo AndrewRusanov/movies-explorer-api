@@ -1,7 +1,7 @@
-import Movie from '../models/Movie';
-import BadRequest from '../errors/BadRequest';
-import NotFoundError from '../errors/NotFoundError';
-import ForbiddenError from '../errors/ForbiddenError';
+import Movie from '../models/Movie.js';
+import BadRequest from '../errors/BadRequest.js';
+import NotFoundError from '../errors/NotFoundError.js';
+import ForbiddenError from '../errors/ForbiddenError.js';
 
 export const getMovies = (req, res, next) => {
   Movie.find({})

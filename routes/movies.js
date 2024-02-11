@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Joi, celebrate } from 'celebrate';
-import { addMovie, deleteMovie, getMovies } from '../controllers/movies';
-import urlRegex from '../utils/constants';
+import { addMovie, deleteMovie, getMovies } from '../controllers/movies.js';
+import urlRegex from '../utils/constants.js';
 
 const moviesRouter = Router();
 moviesRouter.get('/', getMovies);

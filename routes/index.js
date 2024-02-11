@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { Joi, celebrate } from 'celebrate';
-import userRouter from './users';
-import moviesRouter from './movies';
-import auth from '../middlewares/auth';
-import { emailRegex } from '../utils/constants';
-import { createUser, login } from '../controllers/users';
+import userRouter from './users.js';
+import moviesRouter from './movies.js';
+import auth from '../middlewares/auth.js';
+import { emailRegex } from '../utils/constants.js';
+import { createUser, login } from '../controllers/users.js';
 
 const router = Router();
 

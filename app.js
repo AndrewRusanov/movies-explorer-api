@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import { errors } from 'celebrate';
 import dotenv from 'dotenv';
-import handleCenterError from './middlewares/centerError';
-import NotFoundError from './errors/NotFoundError';
-import router from './routes';
-import { requestLogger, errorLogger } from './middlewares/logger';
+import handleCenterError from './middlewares/centerError.js';
+import NotFoundError from './errors/NotFoundError.js';
+import router from './routes/index.js';
+import { requestLogger, errorLogger } from './middlewares/logger.js';
 
 dotenv.config();
 const { PORT = 3000 } = process.env;

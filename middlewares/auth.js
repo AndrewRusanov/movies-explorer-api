@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import AuthorizationError from '../errors/AuthorizationError';
+import AuthorizationError from '../errors/AuthorizationError.js';
 
 const { JWT_SECRET = 'dev-secret' } = process.env;
 
