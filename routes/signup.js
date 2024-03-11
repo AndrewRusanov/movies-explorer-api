@@ -1,12 +1,12 @@
-import { Joi, celebrate } from "celebrate";
-import { Router } from "express";
-import { emailRegex } from "../utils/constants.js";
-import { createUser } from "../controllers/users.js";
+import { Joi, celebrate } from 'celebrate';
+import { Router } from 'express';
+import { emailRegex } from '../utils/constants.js';
+import { createUser } from '../controllers/users.js';
 
 const signUpRouter = Router();
 
 signUpRouter.post(
-  "/signup",
+  '/signup',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30),
@@ -14,7 +14,7 @@ signUpRouter.post(
       password: Joi.string().required(),
     }),
   }),
-  createUser
+  createUser,
 );
 
 export default signUpRouter;
