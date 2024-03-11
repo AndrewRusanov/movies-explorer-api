@@ -1,19 +1,19 @@
 import { Joi, celebrate } from "celebrate";
 import { Router } from "express";
-import { emailRegex } from "../utils/constants";
+import { emailRegex } from "../utils/constants.js";
 import { login } from "../controllers/users";
 
 const signInRouter = Router();
 
 signInRouter.post(
-  '/signin',
+  "/signin",
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email().pattern(emailRegex),
       password: Joi.string().required(),
     }),
   }),
-  login,
+  login
 );
 
 export default signInRouter;
