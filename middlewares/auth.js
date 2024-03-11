@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken';
-import AuthorizationError from '../errors/AuthorizationError.js';
+const jwt = require('jsonwebtoken');
+const AuthorizationError = require('../errors/AuthorizationError');
 
 const { JWT_SECRET = 'dev-secret' } = process.env;
 
-const auth = (req, res, next) => {
+module.exports = (req, res, next) => {
   const { authorzation } = req.headers;
   if (!authorzation || !authorzation.startsWith('Bearer ')) {
     return next(new AuthorizationError('Ошибка авторизации'));
@@ -18,5 +18,3 @@ const auth = (req, res, next) => {
   req.user = payload;
   return next();
 };
-
-export default auth;

@@ -1,9 +1,9 @@
-import mongoose, { Schema } from 'mongoose';
-import validator from 'validator';
-import bcrypt from 'bcrypt';
-import AuthorizationError from '../errors/AuthorizationError.js';
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcrypt');
+const AuthorizationError = require('../errors/AuthorizationError');
 
-const userScheme = new Schema(
+const userScheme = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -29,7 +29,7 @@ const userScheme = new Schema(
   { versionKey: false },
 );
 
-userScheme.statics.findUserByCredentials = function (email, password) {
+userScheme.statics.findUserByCredentials = function findUserByCredentials(email, password) {
   return this.findOne({ email })
     .select('+password')
     .then((user) => {
@@ -45,4 +45,4 @@ userScheme.statics.findUserByCredentials = function (email, password) {
     });
 };
 
-export default mongoose.model('user', userScheme);
+module.exports = mongoose.model('user', userScheme);

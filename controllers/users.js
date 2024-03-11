@@ -1,20 +1,19 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import http2 from 'http2';
-import BadRequest from '../errors/BadRequest.js';
-import User from '../models/User.js';
-import ConflictError from '../errors/ConflictError.js';
+const { HTTP_STATUS_OK, HTTP_STATUS_CREATED } = require('http2').constants;
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+const BadRequest = require('../errors/BadRequest');
+const ConflictError = require('../errors/ConflictError');
 
-const { HTTP_STATUS_OK, HTTP_STATUS_CREATED } = http2.constants;
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-export const getUserInfo = (req, res, next) => {
+module.exports.getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => res.status(HTTP_STATUS_OK).send(user))
     .catch(next);
 };
 
-export const editUserInfo = (req, res, next) => {
+module.exports.editUserInfo = (req, res, next) => {
   const { name, email } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
@@ -33,7 +32,7 @@ export const editUserInfo = (req, res, next) => {
     });
 };
 
-export const login = (req, res, next) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
@@ -49,7 +48,7 @@ export const login = (req, res, next) => {
     .catch(next);
 };
 
-export const createUser = (req, res, next) => {
+module.exports.createUser = (req, res, next) => {
   const { name, email } = req.body;
   bcrypt
     .hash(req.body.password, 10)

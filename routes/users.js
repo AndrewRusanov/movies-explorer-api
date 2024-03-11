@@ -1,12 +1,10 @@
-import { Router } from 'express';
-import { Joi, celebrate } from 'celebrate';
-import { getUserInfo } from '../controllers/users.js';
-import { emailRegex } from '../utils/constants.js';
+const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
+const { getUserInfo, editUserInfo } = require('../controllers/users');
+const { emailRegex } = require('../utils/constants');
 
-const userRouter = Router();
-
-userRouter.get('/me', getUserInfo);
-userRouter.patch(
+router.get('/me', getUserInfo);
+router.patch(
   '/me',
   celebrate({
     body: Joi.object().keys({
@@ -14,6 +12,7 @@ userRouter.patch(
       email: Joi.string().required().email().pattern(emailRegex),
     }),
   }),
+  editUserInfo,
 );
 
-export default userRouter;
+module.exports = router;

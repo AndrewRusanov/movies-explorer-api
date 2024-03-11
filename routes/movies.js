@@ -1,11 +1,10 @@
-import { Router } from 'express';
-import { Joi, celebrate } from 'celebrate';
-import { addMovie, deleteMovie, getMovies } from '../controllers/movies.js';
-import { urlRegex } from '../utils/constants.js';
+const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
+const { getMovies, addMovie, deleteMovie } = require('../controllers/movies');
+const { urlRegex } = require('../utils/constants');
 
-const moviesRouter = Router();
-moviesRouter.get('/', getMovies);
-moviesRouter.post(
+router.get('/', getMovies);
+router.post(
   '/',
   celebrate({
     body: Joi.object().keys({
@@ -24,7 +23,7 @@ moviesRouter.post(
   }),
   addMovie,
 );
-moviesRouter.delete(
+router.delete(
   '/:movieId',
   celebrate({
     params: Joi.object().keys({
@@ -34,4 +33,4 @@ moviesRouter.delete(
   deleteMovie,
 );
 
-export default moviesRouter;
+module.exports = router;

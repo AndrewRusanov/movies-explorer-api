@@ -1,10 +1,8 @@
-import { Joi, celebrate } from 'celebrate';
-import { Router } from 'express';
-import { login } from '../controllers/users.js';
+const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
+const { login } = require('../controllers/users');
 
-const signInRouter = Router();
-
-signInRouter.post(
+router.post(
   '/signin',
   celebrate({
     body: Joi.object().keys({
@@ -15,4 +13,4 @@ signInRouter.post(
   login,
 );
 
-export default signInRouter;
+module.exports = router;

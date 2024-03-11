@@ -1,17 +1,16 @@
-import express, { urlencoded } from 'express';
-import cors from 'cors';
-import mongoose from 'mongoose';
+require('dotenv').config();
+const express = require('express');
+const { urlencoded } = require('express');
+const mongoose = require('mongoose');
+const helmet = require('helmet');
+const { errors } = require('celebrate');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const cors = require('cors');
+const handleCenterError = require('./middlewares/centerError');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const NotFoundError = require('./errors/NotFoundError');
+const router = require('./routes/index');
 
-import { errors } from 'celebrate';
-import dotenv from 'dotenv';
-
-import helmet from 'helmet';
-import handleCenterError from './middlewares/centerError.js';
-import NotFoundError from './errors/NotFoundError.js';
-import router from './routes/index.js';
-import { requestLogger, errorLogger } from './middlewares/logger.js';
-
-dotenv.config();
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
 const app = express();
 

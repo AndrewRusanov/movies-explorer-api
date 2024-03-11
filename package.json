@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node --inspect -- app.js",
+    "dev": "nodemon app.js",
     "lint": "npx eslint ."
   },
   "repository": {
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/AndrewRusanov/movies-explorer-api.git"
   },
   "author": "Andrew Rusanov",
-  "type": "module",
+  "type": "commonjs",
   "license": "ISC",
   "homepage": "https://github.com/AndrewRusanov/movies-explorer-api#readme",
   "dependencies": {

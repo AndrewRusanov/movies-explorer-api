@@ -1,11 +1,10 @@
-import { Router } from 'express';
-import userRouter from './users.js';
-import moviesRouter from './movies.js';
-import auth from '../middlewares/auth.js';
-import signInRouter from './signin.js';
-import signUpRouter from './signup.js';
+const router = require('express').Router();
+const userRouter = require('./users');
+const moviesRouter = require('./movies');
+const signInRouter = require('./signin');
+const signUpRouter = require('./signup');
+const auth = require('../middlewares/auth');
 
-const router = Router();
 router.use('/signup', signUpRouter);
 router.use('/signin', signInRouter);
 
@@ -13,4 +12,4 @@ router.use(auth);
 router.use('/users', userRouter);
 router.use('/movies', moviesRouter);
 
-export default router;
+module.exports = router;
