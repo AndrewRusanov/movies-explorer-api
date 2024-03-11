@@ -1,7 +1,7 @@
 import { Joi, celebrate } from "celebrate";
 import { Router } from "express";
 import { emailRegex } from "../utils/constants.js";
-import { login } from "../controllers/users";
+import { login } from "../controllers/users.js";
 
 const signInRouter = Router();
 

@@ -63,7 +63,8 @@ export const deleteMovie = (req, res, next) => {
           new ForbiddenError("Фильм другого пользователя, его нельзя удалить")
         );
       }
-      return Movie.deleteOne(movie).then(() => res.send({ message: "Карточка удалена" })
+      return Movie.deleteOne(movie).then(() =>
+        res.send({ message: "Карточка удалена" })
       );
     })
     .catch(next);

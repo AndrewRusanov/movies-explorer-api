@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import http2 from "http2";
 import BadRequest from "../errors/BadRequest.js";
-import NotFoundError from "../errors/NotFoundError.js";
 import User from "../models/User.js";
 import ConflictError from "../errors/ConflictError.js";
 
@@ -26,7 +25,7 @@ export const editUserInfo = (req, res, next) => {
     .catch((error) => {
       if (error.code === 11000) {
         next(new ConflictError(error.message));
-      } else if (error.name === 'ValidationError') {
+      } else if (error.name === "ValidationError") {
         next(new BadRequest(error.message));
       } else {
         next(error);
