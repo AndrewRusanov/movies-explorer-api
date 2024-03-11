@@ -6,7 +6,6 @@ import signInRouter from './signin.js';
 import signUpRouter from './signup.js';
 
 const router = Router();
-
 router.use('/signup', signUpRouter);
 router.use('/signin', signInRouter);
 

@@ -50,7 +50,6 @@ export const login = (req, res, next) => {
 };
 
 export const createUser = (req, res, next) => {
-  console.log(req);
   const { name, email } = req.body;
   bcrypt
     .hash(req.body.password, 10)
