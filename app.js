@@ -1,9 +1,10 @@
 import express, { urlencoded } from "express";
+import cors from "cors";
 import mongoose from "mongoose";
 
 import { errors } from "celebrate";
 import dotenv from "dotenv";
-import cors from "cors";
+
 import helmet from "helmet";
 import handleCenterError from "./middlewares/centerError.js";
 import NotFoundError from "./errors/NotFoundError.js";
