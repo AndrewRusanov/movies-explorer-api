@@ -1,19 +1,16 @@
-import { Joi, celebrate } from "celebrate";
-import { Router } from "express";
-import { emailRegex } from "../utils/constants";
-import { login } from "../controllers/users";
+const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
+const { login } = require('../controllers/users');
 
-const signInRouter = Router();
-
-signInRouter.post(
+router.post(
   '/signin',
   celebrate({
     body: Joi.object().keys({
-      email: Joi.string().required().email().pattern(emailRegex),
+      email: Joi.string().required().email(),
       password: Joi.string().required(),
     }),
   }),
   login,
 );
 
-export default signInRouter;
+module.exports = router;

@@ -1,37 +1,39 @@
-import { Router } from 'express';
-import { Joi, celebrate } from 'celebrate';
-import { addMovie, deleteMovie, getMovies } from '../controllers/movies.js';
-import { urlRegex } from '../utils/constants.js';
+const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
+const { getMovies, addMovie, deleteMovie } = require('../controllers/movies');
+const { urlRegex } = require('../utils/constants');
 
-const moviesRouter = Router();
-moviesRouter.get('/', getMovies);
-moviesRouter.post(
+router.get('/', getMovies);
+router.post(
   '/',
-  celebrate({
-    body: Joi.object().keys({
-      country: Joi.string().required(),
-      director: Joi.string().required(),
-      duration: Joi.number().required(),
-      year: Joi.string().required(),
-      description: Joi.string().required(),
-      image: Joi.string().required().pattern(urlRegex),
-      trailerLink: Joi.string().required().pattern(urlRegex),
-      nameRU: Joi.string().required(),
-      nameEN: Joi.string().required(),
-      thumbnail: Joi.string().required().pattern(urlRegex),
-      movieId: Joi.number().required(),
-    }),
-  }),
+  celebrate(
+    {
+      body: Joi.object().keys({
+        country: Joi.string().required(),
+        director: Joi.string().required(),
+        duration: Joi.number().required(),
+        year: Joi.string().required(),
+        description: Joi.string().required(),
+        image: Joi.string().regex(urlRegex).required(),
+        trailerLink: Joi.string().regex(urlRegex).required(),
+        nameRU: Joi.string().required(),
+        nameEN: Joi.string().required(),
+        thumbnail: Joi.string().regex(urlRegex).required(),
+        movieId: Joi.number().required(),
+      }),
+    },
+    { abortEarly: false },
+  ),
   addMovie,
 );
-moviesRouter.delete(
+router.delete(
   '/:movieId',
   celebrate({
     params: Joi.object().keys({
       movieId: Joi.string().length(24).hex().required(),
     }),
-  }),
+  }, { abortEarly: false }),
   deleteMovie,
 );
 
-export default moviesRouter;
+module.exports = router;
