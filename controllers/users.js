@@ -5,6 +5,7 @@ const User = require('../models/User');
 const BadRequest = require('../errors/BadRequest');
 const ConflictError = require('../errors/ConflictError');
 const NotFoundError = require('../errors/NotFoundError');
+const AuthorizationError = require('../errors/AuthorizationError');
 
 module.exports.getUserInfo = async (req, res, next) => {
   try {
@@ -32,10 +33,10 @@ module.exports.login = async (req, res, next) => {
   try {
     const { NODE_ENV, JWT_SECRET } = process.env;
     const { email, password } = req.body;
-    const user = await User.findOne({ email }).select('+password').orFail(new BadRequest('Неправильные имя пользователя или пароль'));
+    const user = await User.findOne({ email }).select('+password').orFail(new AuthorizationError('Неправильные имя пользователя или пароль'));
     const matched = await bcrypt.compare(password, user.password);
     if (!matched) {
-      throw new BadRequest('Неверный пароль');
+      throw new AuthorizationError('Неверный пароль');
     }
     const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
     return res.status(HTTP_STATUS_OK).send({ token });
